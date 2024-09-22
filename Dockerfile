@@ -12,7 +12,7 @@ WORKDIR /root/DinamicaEgo/
 COPY ./tests/ tests/
 
 #Install DinamcaEGO
-RUN curl https://dinamicaego.com/nui_download/1792/ -o ./DinamicaEgo-780.AppImage \
+RUN curl https://dinamicaego.com/nui_download/1792/ -o ./DinamicaEgo.AppImage \
         #Grant excution permision
         && chmod +x ./DinamicaEgo.AppImage \
         #Extract AppImage
@@ -21,7 +21,7 @@ RUN curl https://dinamicaego.com/nui_download/1792/ -o ./DinamicaEgo-780.AppImag
         && rm -rf ./DinamicaEgo.AppImage
         
 #Replace the launcher script       
-COPY ./DinamcaEGO.sh /root/DinamicaEgo/squashfs-root/usr/bin/DinamcaEGO.sh
+COPY ./DinamicaEGO.sh /root/DinamicaEgo/squashfs-root/usr/bin/DinamcaEGO.sh
 
 #DinamicaConsole tem problemas com nome de arquivos diretamente no funtor. Devem ser fornecidos por um filename
 ENTRYPOINT [ "/bin/bash" ]
