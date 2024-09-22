@@ -11,6 +11,7 @@ RUN apt install curl libexpat1 -y
 WORKDIR /root/DinamicaEgo/
 COPY ./tests/ tests/
 
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/DinamicaEgo/squashfs-root/usr/lib
 #Install DinamcaEGO
 RUN curl https://dinamicaego.com/nui_download/1792/ -o ./DinamicaEgo.AppImage \
         #Grant excution permision
@@ -21,7 +22,7 @@ RUN curl https://dinamicaego.com/nui_download/1792/ -o ./DinamicaEgo.AppImage \
         && rm -rf ./DinamicaEgo.AppImage
         
 #Replace the launcher script       
-COPY ./DinamicaEGO.sh /root/DinamicaEgo/squashfs-root/usr/bin/DinamcaEGO.sh
+COPY ./scripts/DinamicaEGO.sh /root/DinamicaEgo/squashfs-root/usr/bin/DinamicaEGO.sh
 
 #DinamicaConsole tem problemas com nome de arquivos diretamente no funtor. Devem ser fornecidos por um filename
 ENTRYPOINT [ "/bin/bash" ]
