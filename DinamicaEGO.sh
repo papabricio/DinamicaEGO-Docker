@@ -7,12 +7,12 @@
 DINAMICA_HOME="${HOME}/Dinamica EGO 7"
 REGISTRY_FILE="${HOME}/.dinamica_ego_7.conf"
 SYSTEM_REGISTRY_FILE="${HOME}/.dinamica_ego_7_system.conf"
-
+WORKING_DIR=$PWD #Directory where the script was called
 BIN_PATH=`dirname "$0"`
 
 #DINAMICA_GUI_COMMAND="${BIN_PATH}/jre/bin/java -Djava.library.path=${BIN_PATH}/../lib/ -DrPluginFilename=Dinamica_1.0.7.tar.gz -Xss1m -Xms64m -Xmx8192m -server -Dawt.useSystemAAFontSettings=lcd -ea -Djava.util.Arrays.useLegacyMergeSort=true -Dsun.java2d.noddraw=false -Dsun.java2d.d3d=false -Dprism.order=sw -splash:$APPDIR/Splash.png -jar ${BIN_PATH}/DinamicaNUI.jar"
 
-DINAMICA_CONSOLE_COMMAND=bin/DinamicaConsole
+DINAMICA_CONSOLE_COMMAND="${BIN_PATH}/DinamicaConsole"
 
 export DINAMICA_EGO_7_INSTALLATION_DIRECTORY=${BIN_PATH}
 
@@ -25,7 +25,7 @@ if [ ! -e "${SYSTEM_REGISTRY_FILE}" ]; then
 fi
 
 if [ $# -eq 0 ]; then
-  echo "No model filename was given"
+  echo "No script filename was given"
 
   #Define o folder do usuário como folder de log
   export DINAMICA_EGO_7_LOG_PATH=${DINAMICA_HOME}
@@ -49,7 +49,6 @@ else
   else
     # Argumento é nome de script com caminho relativo: é necessário completar o caminho.
     export DINAMICA_EGO_7_LOG_PATH=${DINAMICA_HOME}
-    exec ${DINAMICA_CONSOLE_COMMAND} "${@:1:$#-1}" "$OWD/${!#}"
+    exec ${DINAMICA_CONSOLE_COMMAND} "${@:1:$#-1}" "$WORKING_DIR/${!#}"
   fi
 fi
-
